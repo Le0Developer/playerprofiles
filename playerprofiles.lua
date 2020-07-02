@@ -8,34 +8,37 @@ local player_names = { }
 local player_vis = { }
 local load
 load = function()
-  local o = file.Open("player_profiles_save.dat", "r")
-  if o then
+  local ok, o = pcall(file.Open, "player_profiles_save.dat", "r")
+  if ok then
     local r
     do
       r = o:Read()
       o:Close()
     end
-    players = json.parse(r)
-    do
-      local _accum_0 = { }
-      local _len_0 = 1
-      for _index_0 = 1, #players do
-        local v = players[_index_0]
-        _accum_0[_len_0] = v.steam3_32bit
-        _len_0 = _len_0 + 1
+    local okjson
+    okjson, players = pcall(json.parse, r)
+    if okjson then
+      do
+        local _accum_0 = { }
+        local _len_0 = 1
+        for _index_0 = 1, #players do
+          local v = players[_index_0]
+          _accum_0[_len_0] = v.steam3_32bit
+          _len_0 = _len_0 + 1
+        end
+        player_vis = _accum_0
       end
-      player_vis = _accum_0
-    end
-    do
-      local _tbl_0 = { }
-      for _index_0 = 1, #players do
-        local v = players[_index_0]
-        _tbl_0[v.steam3_32bit] = {
-          v.username,
-          v.username
-        }
+      do
+        local _tbl_0 = { }
+        for _index_0 = 1, #players do
+          local v = players[_index_0]
+          _tbl_0[v.steam3_32bit] = {
+            v.username,
+            v.username
+          }
+        end
+        player_names = _tbl_0
       end
-      player_names = _tbl_0
     end
   end
 end

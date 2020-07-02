@@ -11,15 +11,16 @@ players = {}
 player_names = {}
 player_vis = {}
 load = ->
-    o = file.Open "player_profiles_save.dat", "r"
-    if o
+    ok, o = pcall file.Open, "player_profiles_save.dat", "r"
+    if ok
         local r
         with o
             r = \Read!
             \Close! 
-        players = json.parse r
-        player_vis = [v.steam3_32bit for v in *players]
-        player_names = {v.steam3_32bit, {v.username, v.username} for v in *players}
+        okjson, players = pcall json.parse, r
+        if okjson
+            player_vis = [v.steam3_32bit for v in *players]
+            player_names = {v.steam3_32bit, {v.username, v.username} for v in *players}
 
 save = ->
     with file.Open "player_profiles_save.dat", "w"
