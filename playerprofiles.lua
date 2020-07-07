@@ -8,16 +8,9 @@ local player_names = { }
 local player_vis = { }
 local load
 load = function()
-  local ok, o = pcall(file.Open, "player_profiles_save.dat", "r")
-  if ok then
-    local r
-    do
-      r = o:Read()
-      o:Close()
-    end
-    local okjson
-    okjson, players = pcall(json.parse, r)
-    if okjson then
+  return file.Enumerate(function(filename)
+    if filename == "player_profiles_save.dat" then
+      players = json.parse, file.Read("player_profiles_save.dat")
       do
         local _accum_0 = { }
         local _len_0 = 1
@@ -40,7 +33,7 @@ load = function()
         player_names = _tbl_0
       end
     end
-  end
+  end)
 end
 local save
 save = function()

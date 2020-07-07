@@ -11,14 +11,11 @@ players = {}
 player_names = {}
 player_vis = {}
 load = ->
-    ok, o = pcall file.Open, "player_profiles_save.dat", "r"
-    if ok
-        local r
-        with o
-            r = \Read!
-            \Close! 
-        okjson, players = pcall json.parse, r
-        if okjson
+    -- polak broke pcall() ?????
+    -- so Im using this workaround
+    file.Enumerate ( filename ) ->
+        if filename == "player_profiles_save.dat"
+            players = json.parse, file.Read "player_profiles_save.dat"
             player_vis = [v.steam3_32bit for v in *players]
             player_names = {v.steam3_32bit, {v.username, v.username} for v in *players}
 
