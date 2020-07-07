@@ -10,7 +10,7 @@ local load
 load = function()
   return file.Enumerate(function(filename)
     if filename == "player_profiles_save.dat" then
-      players = json.parse, file.Read("player_profiles_save.dat")
+      players = json.parse(file.Read("player_profiles_save.dat"))
       do
         local _accum_0 = { }
         local _len_0 = 1
