@@ -89,7 +89,7 @@ btn = plist.gui.Button "Save Profile", error_wrapper "button", (userid) ->
     save!
     table.insert player_vis, steam3_32bit
     player_names[ steam3_32bit ] = {client.GetPlayerNameByUserID( userid ), client.GetPlayerNameByUserID( userid )}
-    UI_LISTL\SetOptions unpack [player_names[ steam3_32bit ][ 2 ] for steam3_32bit in *player_vis]
+    GUI_LISTL\SetOptions unpack [player_names[ steam3_32bit ][ 2 ] for steam3_32bit in *player_vis]
     fetch steam3_32bit
     if #player_vis == 1
         GUI_OPT_OPEN\SetDisabled false

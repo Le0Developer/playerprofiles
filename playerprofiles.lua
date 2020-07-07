@@ -156,7 +156,7 @@ local btn = plist.gui.Button("Save Profile", error_wrapper("button", function(us
     client.GetPlayerNameByUserID(userid),
     client.GetPlayerNameByUserID(userid)
   }
-  UI_LISTL:SetOptions(unpack((function()
+  GUI_LISTL:SetOptions(unpack((function()
     local _accum_0 = { }
     local _len_0 = 1
     for _index_0 = 1, #player_vis do
